@@ -15,5 +15,13 @@ $aModule          = [
     'url'         => 'https://github.com/swinde/o3-sitemap',
     'extend'      => [],
     'blocks'      => [],
-    'settings'    => [],
+    'settings'    => [
+        [
+            'group' => 'swSitemap',
+            'name' => 'vtWithdrawalCaptchaSitekey',
+            'type' => 'str',
+            'value' => '',
+            'position' => 0
+        ]
+    ],
 ];
