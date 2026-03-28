@@ -1,0 +1,69 @@
+parameters:
+  SWinde.sitemap.lower_urls: true
+services:
+  _defaults:
+    autowire: true
+
+  SWinde\OxidSiteMap\Entity\Config:
+    arguments:
+      $filepath: '@=service("OxidEsales\\Eshop\\Core\\Config").getConfigParam("sShopDir")'
+      $filename: 'sitemap.xml'
+      $shopUrl: '@=service("OxidEsales\\Eshop\\Core\\Config").getConfigParam("sShopURL")'
+      $langParams: '@=service("OxidEsales\\Eshop\\Core\\Config").getConfigParam("aLanguageParams")'
+
+  SWinde\OxidSiteMap\Query\HomePage:
+    arguments:
+      $hierarchy: '0.8'
+      $changefreq: 'weekly'
+  SWinde\OxidSiteMap\Query\Categories:
+    arguments:
+      $hierarchy: '0.8'
+      $changefreq: 'weekly'
+  SWinde\OxidSiteMap\Query\HiddenCategories:
+    arguments:
+      $hierarchy: '0.8'
+      $changefreq: 'weekly'
+  SWinde\OxidSiteMap\Query\Cms:
+    arguments:
+      $hierarchy: '0.1'
+      $changefreq: 'weekly'
+  SWinde\OxidSiteMap\Query\Tags:
+    arguments:
+      $hierarchy: '0.1'
+      $changefreq: 'weekly'
+  SWinde\OxidSiteMap\Query\Products:
+    arguments:
+      $hierarchy: '1.0'
+      $changefreq: 'daily'
+#  SWinde\OxidSiteMap\Query\Variants:
+#    arguments:
+#      $hierarchy: '1.0'
+#      $changefreq: 'daily'
+
+  SWinde\OxidSiteMap\Filter\UrlFilter:
+    arguments:
+      $shopUrl: '@=service("OxidEsales\\Eshop\\Core\\Config").getConfigParam("sShopURL")'
+      $urls:
+        - '/AGB/'
+
+  SWinde\OxidSiteMap\SiteMapGenerator:
+    public: true
+    arguments:
+      $config: '@SWinde\OxidSiteMap\Entity\Config'
+      $queries:
+        - '@SWinde\OxidSiteMap\Query\HomePage'
+        - '@SWinde\OxidSiteMap\Query\Categories'
+        - '@SWinde\OxidSiteMap\Query\HiddenCategories'
+        - '@SWinde\OxidSiteMap\Query\Cms'
+        - '@SWinde\OxidSiteMap\Query\Tags'
+        - '@SWinde\OxidSiteMap\Query\Products'
+#        - '@SWinde\OxidSiteMap\Query\Variants'
+      $lowerUrls: '%SWinde.sitemap.lower_urls%'
+      $filters:
+        - '@SWinde\OxidSiteMap\Filter\UrlFilter'
+
+  SWinde\OxidSiteMap\Commands\SiteMapCommand:
+    class: SWinde\OxidSiteMap\Commands\SiteMapCommand
+    public: true
+    tags:
+      - { name: 'console.command', command: 'SWinde:sitemap:generate' }
