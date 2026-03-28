@@ -1,0 +1,55 @@
+{
+  "name": "swinde/o3-sitemap",
+  "type": "oxideshop-module",
+  "keywords": ["o3-shop", "modules", "eShop", "sitemap"],
+  "description": "SiteMap generator for O3-Shop Eshop",
+  "licence": "GPL-3.0",
+  "authors": [
+    {
+      "name": "Hleb Prakhnitski",
+      "email": "thane.crios@gmail.com"
+    },
+    {
+      "name": "Steffen Winde",
+      "email": "inserv@winde-ganzig.de"
+    }
+  ],
+  "require": {
+    "php": ">=7.1",
+    "o3-shop/shop-ce": "^v1.3.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6",
+    "squizlabs/php_codesniffer": "^3.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "SWinde\\OxidSiteMap\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "SWinde\\OxidSiteMap\\Tests\\": "tests"
+    }
+  },
+  "scripts": {
+    "lint": "vendor/bin/phpcs",
+    "test": "vendor/bin/phpunit"
+  },
+  "extra": {
+    "oxideshop": {
+      "target-directory": "swinde/sitemap",
+      "blacklist-filter": [
+        "composer.json",
+        "*.md",
+        "*.dist",
+        "copy_this/**/*",
+        "src/**/*",
+        "tests/**/*"
+      ]
+    },
+    "branch-alias": {
+        "dev-master": "3.0.x-dev"
+    }
+  }
+}
