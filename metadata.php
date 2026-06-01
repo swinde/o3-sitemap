@@ -16,12 +16,7 @@ $aModule          = [
     'extend'      => [],
     'blocks'      => [],
     'settings'    => [
-        [
-            'group' => 'swSitemap',
-            'name' => 'vtWithdrawalCaptchaSitekey',
-            'type' => 'str',
-            'value' => '',
-            'position' => 0
-        ]
+
+
     ],
 ];
